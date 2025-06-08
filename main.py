@@ -6,8 +6,9 @@ from pathlib import Path
 from flask import Flask, request, jsonify
 import pickle
 
-# 🔧 Ajout du dossier `shared/` au PYTHONPATH
-sys.path.append(str(Path(__file__).resolve().parent.parent / "shared"))
+
+# Ajout du dossier shared/ au PYTHONPATH
+sys.path.append(str(Path(__file__).resolve().parent / "shared"))
 
 from reco_utils import recommend_articles, get_unseen_articles
 
@@ -22,7 +23,7 @@ def recommend():
         return jsonify({"error": "❌ Format JSON attendu : { 'user_id': 123 }"}), 400
 
     # 📂 Chargement des clics
-    clicks_dir = Path(__file__).resolve().parent.parent / "shared"
+    clicks_dir = Path(__file__).resolve().parent / "shared"
     clicks_files = list(clicks_dir.glob("clicks_hour_*.csv"))
     if not clicks_files:
         return jsonify({"error": "❌ Aucun fichier clics trouvé."}), 500
